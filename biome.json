@@ -11,8 +11,11 @@
   },
   "formatter": {
     "enabled": true,
+    "lineEnding": "lf",
+    "lineWidth": 120,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "useEditorconfig": true
   },
   "linter": {
     "enabled": true,
@@ -22,6 +25,11 @@
     "domains": {
       "next": "recommended",
       "react": "recommended"
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true
     }
   },
   "assist": {
