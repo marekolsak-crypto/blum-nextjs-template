@@ -1,3 +1,4 @@
+import { Environment } from "@/components/Environment/Environment";
 import s from "./page.module.css";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <p className={s.description}>
         Šablona pro tvorbu Next.js aplikací v rámci středoškolských praxí Blogic University.
       </p>
+      <Environment />
     </main>
   );
 }
