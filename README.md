@@ -13,7 +13,7 @@
 
 Šablona projektu pro studentské praxe středních škol v rámci **Blogic University**.
 
-Cílem šablony je, abyste nemuseli zdlouhavě nastavovat projekt od začátku. Repozitář už obsahuje základní infrastrukturu, vývojářské nástroje a doporučené nastavení editoru.
+Cílem šablony je, abyste nemuseli nastavovat projekt od začátku. Repozitář už obsahuje základní infrastrukturu, vývojářské nástroje a doporučené nastavení editoru.
 
 ---
 
@@ -23,11 +23,14 @@ Projekt používá:
 
 - **Next.js** pro tvorbu webové aplikace
 - **TypeScript** pro bezpečnější psaní JavaScriptu
-- **Bun** jako package manager a nástroj pro spouštění skriptů
+- **Node.js** pro spouštění JavaScriptu mimo prohlížeč
+- **npm** pro instalaci balíčků a spouštění skriptů
+- **Volta** pro sjednocení verze Node.js mezi studenty
 - **Biome.js** jako formatter a linter
-- **Husky** pro Git hooky
+- **Husky** pro automatické kontroly při práci s Gitem
 - **Visual Studio Code** jako doporučené vývojové prostředí
 - **EditorConfig** pro sjednocení formátování souborů
+- **Code Spell Checker** pro kontrolu překlepů v editoru
 - `.gitignore` pro ignorování souborů, které nepatří do Gitu
 - `.gitattributes` pro sjednocení chování Gitu napříč operačními systémy
 
@@ -39,7 +42,8 @@ Než projekt spustíte, nainstalujte si:
 
 1. Visual Studio Code
 2. Git
-3. Bun
+3. Volta
+4. Node.js pomocí Volty
 
 Níže najdete postup zvlášť pro **Windows** a **macOS**.
 
@@ -79,7 +83,7 @@ brew install --cask visual-studio-code
 
 ### Doporučená rozšíření
 
-Projekt obsahuje nastavení doporučených rozšíření ve složce:
+Projekt obsahuje doporučená rozšíření ve složce:
 
 ```text
 .vscode/extensions.json
@@ -182,32 +186,39 @@ git config --global --list
 
 ---
 
-## 4. Instalace Bun
+## 4. Instalace Volty a Node.js
 
-Bun používáme místo `npm`.
+Node.js je prostředí, které umožňuje spouštět JavaScript mimo prohlížeč.
 
-V tomto projektu tedy používejte hlavně příkazy začínající na:
-
-```bash
-bun
-```
-
-Nepoužívejte `npm install`, pokud k tomu nedostanete pokyn.
+V tomto projektu používáme **Voltu**, aby všichni studenti používali stejnou verzi Node.js. Díky tomu se nestane, že projekt jednomu studentovi funguje a druhému ne jen kvůli jiné verzi Node.js.
 
 ### Windows
 
 Otevřete PowerShell a spusťte:
 
 ```powershell
-powershell -c "irm bun.sh/install.ps1|iex"
+winget install Volta.Volta
 ```
 
 Po instalaci zavřete a znovu otevřete PowerShell nebo Visual Studio Code.
 
-Ověření instalace:
+Ověření instalace Volty:
 
 ```powershell
-bun --version
+volta --version
+```
+
+Nainstalujte Node.js pomocí Volty:
+
+```powershell
+volta install node
+```
+
+Ověření instalace Node.js a npm:
+
+```powershell
+node --version
+npm --version
 ```
 
 ### macOS
@@ -215,16 +226,43 @@ bun --version
 Otevřete Terminál a spusťte:
 
 ```bash
-curl -fsSL https://bun.com/install | bash
+curl https://get.volta.sh | bash
 ```
 
 Po instalaci zavřete a znovu otevřete terminál.
 
-Ověření instalace:
+Ověření instalace Volty:
 
 ```bash
-bun --version
+volta --version
 ```
+
+Nainstalujte Node.js pomocí Volty:
+
+```bash
+volta install node
+```
+
+Ověření instalace Node.js a npm:
+
+```bash
+node --version
+npm --version
+```
+
+### Nastavení verze Node.js pro projekt
+
+V projektu používáme Node.js verze `24`.
+
+Verze Node.js se v projektu nastavuje příkazem:
+
+```bash
+volta pin node@24
+```
+
+Tento příkaz zapíše verzi Node.js do souboru `package.json`, aby všichni používali stejnou verzi.
+
+> Poznámka: V této šabloně už může být verze Node.js nastavená. Pokud si nejste jistí, zeptejte se učitele, jestli máte příkaz `volta pin node@24` spouštět sami.
 
 ---
 
@@ -284,10 +322,12 @@ code .
 Po otevření projektu nainstalujte závislosti:
 
 ```bash
-bun install
+npm install
 ```
 
 Tento příkaz stáhne knihovny potřebné pro běh projektu.
+
+> Poznámka: Pokud používáte Voltu a projekt má nastavenou verzi Node.js v `package.json`, Volta ji v této složce použije automaticky.
 
 ---
 
@@ -296,7 +336,7 @@ Tento příkaz stáhne knihovny potřebné pro běh projektu.
 Vývojový server spustíte příkazem:
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 Po spuštění otevřete v prohlížeči adresu:
@@ -320,37 +360,37 @@ Ctrl + C
 Nejčastější příkazy v projektu:
 
 ```bash
-bun install
+npm install
 ```
 
 Nainstaluje závislosti.
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 Spustí projekt pro vývoj.
 
 ```bash
-bun run build
+npm run build
 ```
 
 Ověří, že projekt lze sestavit pro produkci.
 
 ```bash
-bun run lint
+npm run lint
 ```
 
 Spustí kontrolu kódu pomocí Biome.
 
 ```bash
-bun run format
+npm run format
 ```
 
 Naformátuje soubory pomocí Biome.
 
 ```bash
-bun run check
+npm run check
 ```
 
 Spustí základní kontrolu projektu pomocí Biome.
@@ -369,8 +409,6 @@ git status
 
 Tento příkaz ukáže, které soubory byly změněny.
 
----
-
 ### Stažení posledních změn
 
 Před začátkem práce si vždy stáhněte poslední změny:
@@ -378,8 +416,6 @@ Před začátkem práce si vždy stáhněte poslední změny:
 ```bash
 git pull
 ```
-
----
 
 ### Vytvoření nové branche
 
@@ -413,8 +449,6 @@ Pravidla pro názvy branchí:
 - nepoužívejte diakritiku
 - číslo issue pište hned za typ branche
 
----
-
 ### Uložení změn do commitu
 
 Nejprve zkontrolujte změny:
@@ -432,25 +466,23 @@ git add .
 Vytvořte commit:
 
 ```bash
-git commit -m "chore: configure development environment and tooling (#1)"
+git commit -m "chore: #1 - configure development environment and tooling"
 ```
 
 Doporučený formát commit message:
 
 ```text
-<type>: <short-description> (#<issue-number>)
+<type>: #<issue-number> - <short-description>
 ```
 
 Příklady:
 
 ```bash
-git commit -m "feat: create homepage (#2)"
-git commit -m "fix: repair navigation links (#3)"
-git commit -m "docs: update student guide (#4)"
-git commit -m "chore: configure Biome (#5)"
+git commit -m "feat: #2 - create homepage"
+git commit -m "fix: #3 - repair navigation links"
+git commit -m "docs: #4 - update student guide"
+git commit -m "chore: #5 - configure Biome"
 ```
-
----
 
 ### Odeslání branche na GitHub
 
@@ -474,7 +506,7 @@ git push
 
 ---
 
-## 10. Pull request
+## 10. Pull Request
 
 Po dokončení úlohy vytvořte na GitHubu **Pull Request**.
 
@@ -490,6 +522,18 @@ Closes #1
 ```
 
 5. Odešlete Pull Request ke kontrole.
+
+Doporučený formát názvu Pull Requestu:
+
+```text
+<type>: #<issue-number> - <short-description>
+```
+
+Příklad:
+
+```text
+feat: #1 - create basic project setup
+```
 
 ---
 
@@ -509,19 +553,32 @@ Pokud Git hook najde chybu, commit nebo push se může zastavit. V takovém př�
 
 ## 12. Nejčastější problémy
 
-### Příkaz `bun` nefunguje
+### Příkaz `volta` nefunguje
 
 Zkuste zavřít a znovu otevřít terminál.
 
 Potom ověřte instalaci:
 
 ```bash
-bun --version
+volta --version
 ```
 
-Pokud příkaz stále nefunguje, nainstalujte Bun znovu podle návodu výše.
+Pokud příkaz stále nefunguje, nainstalujte Voltu znovu podle návodu výše.
 
----
+### Příkaz `node` nebo `npm` nefunguje
+
+Zkuste spustit:
+
+```bash
+volta install node
+```
+
+Potom ověřte instalaci:
+
+```bash
+node --version
+npm --version
+```
 
 ### Příkaz `code .` nefunguje
 
@@ -540,36 +597,32 @@ Shell Command: Install 'code' command in PATH
 
 Zavřete a znovu otevřete terminál.
 
----
-
 ### Projekt nejde spustit
 
 Zkuste znovu nainstalovat závislosti:
 
 ```bash
-bun install
+npm install
 ```
 
 Potom projekt znovu spusťte:
 
 ```bash
-bun run dev
+npm run dev
 ```
-
----
 
 ### Biome hlásí chyby
 
 Spusťte formátování:
 
 ```bash
-bun run format
+npm run format
 ```
 
 Potom spusťte kontrolu:
 
 ```bash
-bun run check
+npm run check
 ```
 
 ---
@@ -595,15 +648,15 @@ git switch -c feat/1-task-name
 4. Zkontrolujte projekt:
 
 ```bash
-bun run check
-bun run build
+npm run check
+npm run build
 ```
 
 5. Vytvořte commit:
 
 ```bash
 git add .
-git commit -m "feat: complete task name (#1)"
+git commit -m "feat: #1 - complete task name"
 ```
 
 6. Odešlete branch:
@@ -619,7 +672,8 @@ git push -u origin feat/1-task-name
 ## 14. Užitečné odkazy
 
 - Visual Studio Code: https://code.visualstudio.com/download
-- Bun: https://bun.com/docs/installation
+- Volta: https://docs.volta.sh/guide/getting-started
+- Node.js: https://nodejs.org/
 - Git: https://git-scm.com/install
 - Biome: https://biomejs.dev/
 - EditorConfig: https://editorconfig.org/

@@ -1,1 +1,1 @@
-bun run ts && bun run lint && bun run build
+npm run ts && npm run lint && npm run build
