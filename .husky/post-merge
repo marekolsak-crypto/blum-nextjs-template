@@ -2,4 +2,4 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # matches only the package-lock.json inside project directory
-bunx git-pull-run -p 'package-lock.json' -c 'bun i'
+npx git-pull-run -p 'package-lock.json' -c 'npm i'
