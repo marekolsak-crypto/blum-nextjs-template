@@ -1,18 +1,3 @@
-:root {
-  /* Primitive tokens */
-
-  --color-black-900: #000;
-  --color-black-800: #333;
-  --color-black-700: #666;
-  --color-black-600: #999;
-
-  /* Semantic tokens */
-
-  --color-text-default-primary: var(--color-black-900);
-  --color-text-default-secondary: var(--color-black-800);
-  --color-text-default-tertiary: var(--color-black-700);
-}
-
 html {
   height: 100%;
 }
