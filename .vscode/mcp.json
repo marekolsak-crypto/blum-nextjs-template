@@ -1,0 +1,14 @@
+{
+  "servers": {
+    "NextJS MCP": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "TanStack MCP": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@tanstack/cli", "mcp"]
+    }
+  }
+}
