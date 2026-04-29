@@ -4,9 +4,11 @@
 import { Avatar, Box, Group, Menu, Stack, Text, UnstyledButton } from "@mantine/core";
 import { ChevronDown, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { signOut, useSession } from "@/lib/auth-client";
 
 export function UserMenu() {
+  const t = useTranslations();
   const router = useRouter();
   const { isPending, data: session } = useSession();
 
@@ -56,7 +58,7 @@ export function UserMenu() {
         <Menu.Divider />
 
         <Menu.Item color="red" leftSection={<LogOut size={16} />} onClick={onSignOutHandler}>
-          Odhlásit se
+          {t("component.userMenu.signOut")}
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>
