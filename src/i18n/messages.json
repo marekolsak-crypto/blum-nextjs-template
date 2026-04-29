@@ -1,0 +1,21 @@
+{
+  "component": {
+    "userMenu": {
+      "signOut": "Odhlásit se"
+    },
+    "serverStatus": {
+      "title": "Spojení se serverem bylo ztraceno",
+      "description": "Aplikace je dočasně nedostupná. Jakmile se spojení obnoví, toto okno se automaticky zavře."
+    }
+  },
+  "page": {
+    "home": {
+      "title": "BLUM Next.js Template",
+      "description": "Šablona pro tvorbu Next.js aplikací v rámci středoškolských praxí Blogic University."
+    },
+    "signIn": {
+      "title": "Přihlašování",
+      "description": "Stránka pro přihlašování uživatelů."
+    }
+  }
+}
